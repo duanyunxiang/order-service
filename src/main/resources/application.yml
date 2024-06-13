@@ -17,6 +17,30 @@ spring:
     password: ${spring.r2dbc.password}
     # flyway不支持r2dbc，所以使用jdbc驱动
     url: jdbc:postgresql://localhost:5432/polardb_order
+  # 使用配置服务器，中心化的属性高于本地属性
+  config:
+    # optional表示尝试从配置服务获取配置，如获取不到就取本地
+    import: "optional:configserver:"
+  cloud:
+    config:
+      # 配置服务器地址
+      uri: http://localhost:8888
+      # 连接超时时间（毫秒）
+      request-connect-timeout: 5000
+      # 读取数据超时时间（毫秒）
+      request-read-timeout: 5000
+      # 连接配置服务失败，是否为致命错误，true时才会启用重试
+      fail-fast: false
+      # 重试策略配置
+      retry:
+        # 最大重试次数
+        max-attempts: 3
+        # 重试初始间隔
+        initial-interval: 1000
+        # 重试最大间隔
+        max-interval: 2000
+        # 下一次间隔的乘数
+        multiplier: 1.1
 
 server:
   port: 9002
