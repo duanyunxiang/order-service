@@ -23,5 +23,9 @@ server:
   # 优雅关机
   shutdown: graceful
   netty:
+    #  连接超时时间
     connection-timeout: 2s
     idle-timeout: 15s
+
+polar:
+  catalog-service-uri: "http://localhost:9001"
