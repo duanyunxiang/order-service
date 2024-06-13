@@ -23,13 +23,25 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    // 指定Testcontainers版本，用于配置测试用、轻量级的postgreSql容器
+    set('testcontainersVersion',"1.17.3")
+}
+
 dependencies {
+    // 支持反应式应用的持久化
     implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // 构建反应式web应用，Netty作为嵌入式服务器
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'org.postgresql:r2dbc-postgresql'
+
+    runtimeOnly 'org.postgresql:postgresql'
+    //引入flyway，最新版本不支持postgreSql 14.4
+    implementation 'org.flywaydb:flyway-core:9.22.3'
+    runtimeOnly 'org.springframework:spring-jdbc'
+
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
