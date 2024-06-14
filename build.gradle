@@ -45,6 +45,8 @@ dependencies {
     implementation 'org.flywaydb:flyway-core:9.22.3'
     runtimeOnly 'org.springframework:spring-jdbc'
 
+    implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
+
     annotationProcessor 'org.projectlombok:lombok'
     // 自定义配置属性，自动补全和类型检查支持
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -58,6 +60,7 @@ dependencies {
     testImplementation 'com.squareup.okhttp3:mockwebserver'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.springframework.cloud:spring-cloud-stream-test-binder'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'

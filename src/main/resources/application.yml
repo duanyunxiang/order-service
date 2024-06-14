@@ -3,6 +3,13 @@ spring:
     name: order-service
   lifecycle:
     timeout-per-shutdown-phase: 15s
+  # rabbitmq配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: password
+    connection-timeout: 5s
   r2dbc:
     username: user
     password: password
@@ -22,6 +29,27 @@ spring:
     # optional表示尝试从配置服务获取配置，如获取不到就取本地
     import: "optional:configserver:"
   cloud:
+    function:
+      # 定义由Spring Cloud Function管理的函数
+      definition: dispatchOrder
+    stream:
+      bindings:
+        # 输入绑定
+        dispatchOrder-in-0:
+          # 交换机order-dispatched
+          destination: order-dispatched
+          # 队列order-dispatched.order-service
+          group: ${spring.application.name}
+        acceptOrder-out-0:
+          # 指定目的地交换机
+          destination: order-accepted
+      # rabbitmq针对Spring Cloud Stream绑定所提供的配置
+      rabbit:
+        bindings:
+          acceptOrder-out-0:
+            producer:
+              # 使acceptOrder-out-0绑定支持事务
+              transacted: true
     config:
       # 配置服务器地址
       uri: http://localhost:8888
