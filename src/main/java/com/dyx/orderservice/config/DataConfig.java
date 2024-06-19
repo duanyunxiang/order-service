@@ -19,6 +19,7 @@ public class DataConfig {
                 ReactiveSecurityContextHolder.getContext()
                         .map(SecurityContext::getAuthentication)
                         .filter(Authentication::isAuthenticated)
+                        //subject-用户加密ID
                         .map(Authentication::getName);
     }
 }
