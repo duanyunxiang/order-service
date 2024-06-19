@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.0'
-    id 'io.spring.dependency-management' version '1.1.5'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'com.dyx'
@@ -24,7 +24,8 @@ repositories {
 ext {
     // 指定Testcontainers版本，用于配置测试用、轻量级的postgreSql容器
     set('testcontainersVersion',"1.17.3")
-    set('springCloudVersion', "2023.0.2")
+    set('springCloudVersion', "2021.0.8")
+    set('testKeycloakVersion', "3.2.0")
 }
 
 dependencies {
@@ -42,25 +43,33 @@ dependencies {
 
     runtimeOnly 'org.postgresql:postgresql'
     //引入flyway，最新版本不支持postgreSql 14.4
-    implementation 'org.flywaydb:flyway-core:9.22.3'
+    runtimeOnly 'org.flywaydb:flyway-core:9.22.3'
     runtimeOnly 'org.springframework:spring-jdbc'
 
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
+    // 引入OAuth2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
     annotationProcessor 'org.projectlombok:lombok'
     // 自定义配置属性，自动补全和类型检查支持
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'com.squareup.okhttp3:mockwebserver'
+    testImplementation "com.github.dasniko:testcontainers-keycloak:${testKeycloakVersion}"
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
     testImplementation 'org.testcontainers:r2dbc'
-    testImplementation 'com.squareup.okhttp3:mockwebserver'
-    testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testImplementation 'org.springframework.cloud:spring-cloud-stream-test-binder'
+    testImplementation("org.springframework.cloud:spring-cloud-stream") {
+        artifact {
+            name = "spring-cloud-stream"
+            extension = "jar"
+            type ="test-jar"
+            classifier = "test-binder"
+        }
+    }
 
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'

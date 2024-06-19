@@ -1,8 +1,8 @@
 package com.dyx.orderservice.book;
 
-import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 @ConfigurationProperties(prefix = "polar")
