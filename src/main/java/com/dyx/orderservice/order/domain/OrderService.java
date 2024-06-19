@@ -60,8 +60,9 @@ public class OrderService {
         return new Order(
                 existingOrder.id(),existingOrder.bookIsbn(),existingOrder.bookName(),
                 existingOrder.bookPrice(), existingOrder.quantity(),
-                OrderStatus.DISPATCHED,existingOrder.createDate(),
-                existingOrder.lastModifiedDate(),existingOrder.version()
+                OrderStatus.DISPATCHED,
+                existingOrder.createDate(), existingOrder.lastModifiedDate(),
+                existingOrder.createdBy(), existingOrder.lastModifiedBy(), existingOrder.version()
         );
     }
 
