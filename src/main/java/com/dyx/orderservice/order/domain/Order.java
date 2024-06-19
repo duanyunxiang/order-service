@@ -27,6 +27,7 @@ public record Order(
         @LastModifiedDate
         Instant lastModifiedDate,
 
+        //对实体新建or更新操作时，Spring Data自动填充
         @CreatedBy
         String createdBy,
         @LastModifiedBy

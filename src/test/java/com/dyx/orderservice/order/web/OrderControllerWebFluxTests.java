@@ -20,15 +20,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @WebFluxTest(OrderController.class)
+//导入应用的安全配置
 @Import(SecurityConfig.class)
 class OrderControllerWebFluxTests {
-
 	@Autowired
 	WebTestClient webClient;
-
 	@MockBean
 	OrderService orderService;
 
+	// 解码访问令牌用
 	@MockBean
 	ReactiveJwtDecoder reactiveJwtDecoder;
 
@@ -40,8 +40,9 @@ class OrderControllerWebFluxTests {
 				.willReturn(Mono.just(expectedOrder));
 
 		webClient
-				.mutateWith(SecurityMockServerConfigurers.mockJwt()
-						.authorities(new SimpleGrantedAuthority("ROLE_customer")))
+				.mutateWith(SecurityMockServerConfigurers
+						//mock访问令牌
+						.mockJwt().authorities(new SimpleGrantedAuthority("ROLE_customer")))
 				.post()
 				.uri("/orders")
 				.bodyValue(orderRequest)

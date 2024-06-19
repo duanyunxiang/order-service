@@ -1,6 +1,6 @@
 package com.dyx.orderservice.order.domain;
 
-import com.dyx.orderservice.order.persistence.DataConfig;
+import com.dyx.orderservice.config.DataConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
