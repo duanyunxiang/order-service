@@ -48,8 +48,11 @@ public class OrderService {
      * 订单派发后更新数据中Order状态
      */
     public Flux<Order> consumeOrderDispatchedEvent(Flux<OrderDispatchedMessage> flux){
-        //根据id读取记录
-        return flux.flatMap(message->orderRepository.findById(message.orderId()))
+        return flux.flatMap(message->{
+                    log.info("receive dispatch finish MQ, id: {}",message.orderId());
+                    //根据id读取记录
+                    return orderRepository.findById(message.orderId());
+                })
                 .map(this::buildDispatchedOrder)
                 //更新订单状态为DISPATCHED
                 .flatMap(orderRepository::save);
