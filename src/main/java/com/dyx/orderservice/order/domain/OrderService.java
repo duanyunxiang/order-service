@@ -21,8 +21,8 @@ public class OrderService {
     //以命令方式，发送数据到特定目的地
     private final StreamBridge streamBridge;
 
-    public Flux<Order> getAllOrders(){
-        return orderRepository.findAll();
+    public Flux<Order> getAllOrders(String userId){
+        return orderRepository.findAllByCreatedBy(userId);
     }
 
     /**
