@@ -49,6 +49,8 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
     // 引入OAuth2
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    // 使用spring boot actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     annotationProcessor 'org.projectlombok:lombok'
     // 自定义配置属性，自动补全和类型检查支持
