@@ -49,7 +49,7 @@ public class OrderService {
      */
     public Flux<Order> consumeOrderDispatchedEvent(Flux<OrderDispatchedMessage> flux){
         return flux.flatMap(message->{
-                    log.info("receive dispatch finish MQ, id: {}",message.orderId());
+                    log.info("收到派发mq，订单id：{}",message.orderId());
                     //根据id读取记录
                     return orderRepository.findById(message.orderId());
                 })
@@ -75,12 +75,12 @@ public class OrderService {
             return;
         }
         var orderAcceptedMessage=new OrderAcceptedMessage(order.id());
-        log.info("sending order accepted event with id: {}",order.id());
+        log.info("发送订单接受event，id：{}",order.id());
 
         //将消息显示发送至acceptedOrder-out-0绑定
         //由streamBridge自动创建acceptOrder-out-0绑定
         var result=streamBridge.send("acceptOrder-out-0",orderAcceptedMessage);
-        log.info("result of sending data for order with id {}: {}",order.id(),result);
+        log.info("发送event结果，id：{}，result：{}",order.id(),result);
     }
 
     public static Order buildRejectedOrder(String bookIsbn, int quantity){

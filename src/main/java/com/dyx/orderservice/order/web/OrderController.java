@@ -22,13 +22,14 @@ public class OrderController {
     @GetMapping
     //自动装配访问令牌对象：Jwt格式-代表当前认证用户
     public Flux<Order> getAllOrders(@AuthenticationPrincipal Jwt jwt){
-        //log.info("claims={}",jwt.getClaims());
+        log.info("当前认证用户claims：{}",jwt.getClaims());
         //subject为用户加密ID
         return orderService.getAllOrders(jwt.getSubject());
     }
 
     @PostMapping
     public Mono<Order> submitOrder(@RequestBody @Valid OrderRequest orderRequest){
+        log.info("提交订单请求，request：{}",orderRequest);
         return orderService.submitOrder(orderRequest.isbn(),orderRequest.quantity());
     }
 }

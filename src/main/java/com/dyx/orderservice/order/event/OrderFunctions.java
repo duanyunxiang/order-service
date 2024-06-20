@@ -16,7 +16,7 @@ public class OrderFunctions {
         //根据派发消息更新数据中订单状态
         return flux->orderService.consumeOrderDispatchedEvent(flux)
                 //打印日志
-                .doOnNext(order->log.info("the order with id {} is dispatched.",order.id()))
+                .doOnNext(order->log.info("订单id：{}，已派发",order.id()))
                 //订阅反应式流以激活
                 .subscribe();
     }
