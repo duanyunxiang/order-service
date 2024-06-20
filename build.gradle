@@ -51,6 +51,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     // 使用spring boot actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // 集成Grafana观测工具prometheus，用于收集和存储应用metrics度量信息
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 
     annotationProcessor 'org.projectlombok:lombok'
     // 自定义配置属性，自动补全和类型检查支持
