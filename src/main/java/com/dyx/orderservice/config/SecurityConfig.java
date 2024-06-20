@@ -13,7 +13,9 @@ public class SecurityConfig {
     SecurityWebFilterChain filterChain(ServerHttpSecurity http){
         return http
                 //所有请求都验证
-                .authorizeExchange(exchange->exchange.anyExchange().authenticated())
+                .authorizeExchange(exchange->exchange
+                        .pathMatchers("/actuator/**").permitAll()
+                        .anyExchange().authenticated())
                 //基于jwt的默认配置启用OAuth2资源服务器
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt)
                 //因为每个请求都包含访问令牌，所以不在请求间保持用户会话
