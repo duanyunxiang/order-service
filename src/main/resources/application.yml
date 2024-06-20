@@ -94,6 +94,11 @@ management:
       # 添加带有应用名称的Micrometer通用标签，这会将一个Prometheus标记应用到所有度量中
       application: ${spring.application.name}
 
+logging:
+  pattern:
+    # 在日志级别旁边，包含应用名、跟踪ID和跨度ID
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+
 server:
   port: 9002
   # 优雅关机
