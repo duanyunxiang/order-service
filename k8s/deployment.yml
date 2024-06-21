@@ -63,3 +63,7 @@ spec:
               port: 9002
             initialDelaySeconds: 5
             periodSeconds: 15
+      volumes:
+        - name: order-config-volume
+          configMap:
+            name: order-config

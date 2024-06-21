@@ -31,8 +31,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/polardb_order
   # 使用配置服务器，中心化的属性高于本地属性
   config:
-    # optional表示尝试从配置服务获取配置，如获取不到就取本地
-    import: "optional:configserver:"
+    import: ""
   cloud:
     function:
       # 定义由Spring Cloud Function管理的函数
@@ -56,6 +55,7 @@ spring:
               # 使acceptOrder-out-0绑定支持事务
               transacted: true
     config:
+      enabled: false
       # 配置服务器地址
       uri: http://localhost:8888
       # 连接超时时间（毫秒）
